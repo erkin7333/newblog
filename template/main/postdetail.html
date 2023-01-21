@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Yangilik tavsiloti{% endblock %}
+
+{% block content %}
+<ul class="list-articles">
+    {% for p in details %}
+    <li><h2>{{p.title}}</h2>
+        {% autoescape on %}
+        {{p.content|linebreaks|truncatewords:50}}
+        {% endautoescape %}
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="#">Читать пост</a></p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
