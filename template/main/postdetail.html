@@ -3,15 +3,9 @@
 {% block title %}Yangilik tavsiloti{% endblock %}
 
 {% block content %}
-<ul class="list-articles">
-    {% for p in details %}
-    <li><h2>{{p.title}}</h2>
-        {% autoescape on %}
-        {{p.content|linebreaks|truncatewords:50}}
-        {% endautoescape %}
-        <div class="clear"></div>
-        <p class="link-read-post"><a href="#">Читать пост</a></p>
-    </li>
-    {% endfor %}
-</ul>
+<h2>{{details.title}}</h2>
+{% if details.photo %}
+<p><img class="img-article-left" src="{{ details.photo.url }}" alt=""></p>
+{% endif %}
+{{details.content|linebreaks}}
 {% endblock %}

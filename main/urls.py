@@ -5,7 +5,9 @@ from .views import *
 app_name = 'main'
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', NewsListView.as_view(), name='home'),
 
-    path('detail/<int:pk>/', postdetaile, name='detail')
+    path('detail/<slug:slug>/', postdetaile, name='detail'),
+
+    path('addnews/', addnews, name='addnews')
 ]

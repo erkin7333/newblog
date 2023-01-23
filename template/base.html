@@ -17,7 +17,7 @@
                     <li class="logo"><a href="{% url 'main:home' %}">
                         <div class="logo"></div>
                     </a></li>
-                    <li><a href="#"></a></li>
+                    <li><a href="{% url 'main:addnews' %}">Yangilik qo'shish</a></li>
                     <li class="last"><a href="#">Login</a></li>
                 </ul>
                 <div class="clear"></div>
@@ -28,9 +28,10 @@
                 <tr>
                     <!-- Sidebar слева -->
                     <td valign="top" class="left-chapters">
+                        {% categories as category %}
                         <ul id="leftchapters">
                             <li class="selected">Все категории</li>
-                            {% for cat in cats %}
+                            {% for cat in category %}
                             <li><a href="#">{{ cat.name }}</a></li>
                             <li class="share">
                                 {% endfor %}

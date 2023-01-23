@@ -5,7 +5,6 @@ register = template.Library()
 
 
 
-@register.simple_tag(name="cats")
+@register.simple_tag(name="categories")
 def all_category():
-    cats = Category.objects.all()
-    return {'cats': cats}
+    return Category.objects.all()
