@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import New
 from .forms import AddNewPost
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 
@@ -22,13 +22,29 @@ class NewsListView(ListView):
     template_name = 'main/index.html'
     context_object_name = 'posts'
 
+    def get_queryset(self):
+        return New.objects.filter(is_published=True)
+
 
 def postdetaile(request, slug):
+    """Yangiliklarni tavsilotni ko'rish uchun funksiya"""
+
     details = New.objects.get(slug=slug)
     context = {
         'details': details
     }
     return render(request, 'main/postdetail.html', context=context)
+
+
+class NewsDetailView(DetailView):
+    """Yangiliklarni tavsilotlarini chiqarish uchun Class based views"""
+
+    model = New
+    template_name = "main/postdetail.html"
+    context_object_name = "details"
+
+    def get_queryset(self):
+        return New.objects.filter(slug=self.kwargs['slug'], is_published=True)
 
 
 def addnews(request):
@@ -43,3 +59,13 @@ def addnews(request):
     else:
         form = AddNewPost()
     return render(request, 'main/addnews.html', {'form': form})
+
+
+def filternews(request, slug):
+    """Yangiliklarni kategoriyalari bo'yicha filterlash"""
+
+    newfilter = New.objects.filter(cat__slug=slug)
+    context = {
+        'newfilter': newfilter
+    }
+    return render(request, 'main/filtercategory.html', context=context)

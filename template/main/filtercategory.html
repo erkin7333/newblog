@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Yangiliklar{% endblock %}
+
+{% block content %}
+<ul class="list-articles">
+    {% for p in newfilter %}
+    <li><div class="article-panel">
+        <p class="first"> Category: {{ p.cat }}</p>
+        <p class="last">Vaqt: {{ p.created_at | date:"d-m-Y H:i:s" }}</p>
+    </div>
+        {% if p.photo %}
+        <p><img class="img-article-left thumb" src="{{ p.photo.url }}" alt=""></p>
+        {% endif %}
+        <h2>{{p.title}}</h2>
+        {% autoescape on %}
+        {{p.content|linebreaks|truncatewords:50}}
+        {% endautoescape %}
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="{% url 'main:detail' p.slug %}">Читать пост</a></p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
