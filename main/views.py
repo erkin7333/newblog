@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import New
 from .forms import AddNewPost
 from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator
 
 
 
@@ -21,6 +22,7 @@ class NewsListView(ListView):
     model = New
     template_name = 'main/index.html'
     context_object_name = 'posts'
+    paginate_by = 20
 
     def get_queryset(self):
         return New.objects.filter(is_published=True)
@@ -65,6 +67,9 @@ def filternews(request, slug):
     """Yangiliklarni kategoriyalari bo'yicha filterlash"""
 
     newfilter = New.objects.filter(cat__slug=slug)
+    # paginator = Paginator(newfilter, 2)  # Show 25 contacts per page.
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
     context = {
         'newfilter': newfilter
     }
